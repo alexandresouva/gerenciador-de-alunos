@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador de alunos</title>
+  <!-- Semantic UI import -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"
+    integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css"
+    integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Local imports -->
+  <script src="scripts/main.js"></script>
+  <script src="scripts/grade_table.js"></script>
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+  <main>
+    <div class="ui container">
+      <header id="header-settings" class="ui grid">
+        <div id="header-title">
+          <img src="images/students.png" alt="">
+          <h1 class="ui header">
+            Listagem de alunos
+            <div class="sub header">E controle de notas 🎓</div>
+          </h1>
+        </div>
+        <div class="ui mini form">
+          <div class="fields">
+            <div class="field">
+              <label id="label-grades" for="vol">&#9997; Quantidade de notas</label>
+              <span class="range-input ">0</span>
+              <input id="num-of-grades" type="range" value="0" min="0" max="6" />
+            </div>
+            <div class="field">
+              <label id="label-approval" for="vol">Nota mínima para aprovação:</label>
+              <span class="range-input">0</span>
+              <input id="min-to-aproval" type="range" value="0" min="0" max="100" />
+            </div>
+            <div class="field">
+              <label id="label-recovery" for="vol">Nota mínima para recuperação</label>
+              <span class="range-input">0</span>
+              <input id="min-to-recovery" type="range" value="0" min="0" max="100" />
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <table id="grade-table" class="ui fixed single line celled table">
+      <thead>
+        <tr class="center aligned">
+          <th class="left aligned">Nome</th>
+          <th>Média</th>
+          <th>Situação</th>
+        </tr>
+      </thead>
+      <tbody class="center aligned">
+        <tr>
+          <td class="left aligned">John</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="ui basic button">
+      <i class="icon user"></i>
+      Adicionar aluno
+    </button>
+    <button class="ui primary button">Calcular</button>
+  </main>
+</body>
+
+</html>
