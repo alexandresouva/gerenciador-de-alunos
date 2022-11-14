@@ -41,42 +41,45 @@ const deleteGradeColumn = () => {
 
 const updateGradeHeader = () => {
   for (let i = 1; i < totalColumns - 2; i++) {
-    tableHeader.children[i].textContent = `Avaliação ${i}`;
+    tableHeader.children[i].textContent = `Nota ${i}`;
   }
 }
 
 // Add students
 
-let gradeContainer;
+let gradeContainer = document.getElementById('grade-container');
 
 const addStudent = () => {
   openStudentModal();
+  resetGradeInput();
   createGradeInput();
 }
 
 const openStudentModal = () => {
   $('.ui.large.modal')
-  .modal('show');
+    .modal('show');
 }
 
 const createGradeInput = () => {
-  gradeContainer = document.getElementById('grade-container');
 
-  for (let i = 0; i < columnsDiff; i++) {
+  for (let i = 0; i < newNumColumns; i++) {
     const newDiv = document.createElement("div");
     gradeContainer.appendChild(newDiv);
     newDiv.classList.add('column', 'field');
-    
+
     const newLabel = document.createElement("label");
-    newLabel.textContent = `Nota ${i + 1}`;  
+    newLabel.textContent = `Nota ${i + 1}`;
     newDiv.appendChild(newLabel);
-  
+
     const newInput = document.createElement("input");
-    newDiv.appendChild(newInput);  
+    newDiv.appendChild(newInput);
   }
 }
 
-const deleteGradeInput = () => {
+const resetGradeInput = () => {
   let totalGrades = gradeContainer.children.length;
-  gradeContainer.removeChild(gradeContainer.children[totalGrades - 1]);
+
+  for (let i = 0; i < totalGrades; i++) {
+    gradeContainer.removeChild(gradeContainer.children[0]);
+  }
 }

@@ -61,12 +61,7 @@
           <th>Situação</th>
         </tr>
       </thead>
-      <tbody class="center aligned">
-        <tr>
-          <td class="left aligned">John</td>
-          <td></td>
-          <td></td>
-        </tr>
+      <tbody id="table-body" class="center aligned">
       </tbody>
     </table>
 
@@ -79,12 +74,11 @@
 
   <!-- Initial modal -->
   <div class="ui small modal">
-    <div class="header">Header</div>
+    <div class="header">Configurações iniciais</div>
+    <i class="close icon"></i>
     <div class="content">
-      <p></p>
-      <p></p>
-      <p></p>
-      <div class="ui mini form">
+      <p>Preencha os campos abaixo para configurar sua tabela. </p>
+      <div id="initial-modal" class="ui mini form">
         <div class="fields">
           <div class="field">
             <label for="vol">&#9997; Quantidade de notas</label>
@@ -108,33 +102,17 @@
 
   <!-- New Student Modal -->
   <div class="ui large modal">
-    <div class="header">Header</div>
+    <div class="header">Cadastro de novo aluno</div>
     <i class="close icon"></i>
-    <form class="ui form">
+    <form id="student-form" class="ui form">
       <div class="field">
         <label>Nome</label>
         <input type="text" placeholder="Nome completo" />
       </div>
       <div id="grade-container" class="ui equal width grid">
-        <!-- <div class="column field">
-          <label>Nota 1</label>
-          <input type="text" />
-        </div>
-        <div class="column field">
-          <label>Nota 2</label>
-          <input type="text" />
-        </div>
-        <div class="column field">
-          <label>Nota 3</label>
-          <input type="text" />
-        </div>
-        <div class="column field">
-          <label>Nota 4</label>
-          <input type="text" />
-        </div> -->
+        <!-- Here JS will be add grade inputs -->
       </div>
     </form>
-    <button onclick="deleteGradeInput()">Teste</button>
     <div class="actions">
       <button class="negative ui button">Cancelar</button>
       <div class="ui positive right labeled icon button">
@@ -142,7 +120,9 @@
         <i class="checkmark icon"></i>
       </div>
     </div>
-  </div <!-- Local Script Imports -->
+  </div>
+  
+  <!-- Local Script Imports -->
   <script src="scripts/grade_table.js"></script>
   <script src="scripts/main.js"></script>
 </body>

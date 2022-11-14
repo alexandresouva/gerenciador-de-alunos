@@ -1,54 +1,100 @@
 body {
-    background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 
 main {
-    max-width: 1127px;
-    padding: 2rem;
-    margin: 5rem auto;
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgb(100 100 100 / 30%);
+  max-width: 1127px;
+  padding: 2rem;
+  margin: 5rem auto;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgb(100 100 100 / 30%);
 }
 
-#header-settings{
-    display: flex;
-    justify-content: space-between;
+#grade-table {
+  margin-top: 25px;
+}
+
+#student-form label{
+  margin-bottom: 5px !important;
+}
+
+/* ------------------------
+      Table settings
+------------------------ */
+#header-settings {
+  display: flex;
+  justify-content: space-between;
 }
 
 #header-title img {
-    margin-right: 1.5rem;
+  margin-right: 1.5rem;
 }
 
-#header-title{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.ui.mini.form{
-    padding: 5px 10px !important;
-    border-radius: 10px;
-    box-shadow: 0 2px 2px rgb(100 100 100 / 30%);
+.range-input {
+  display: block;
+}
+
+/* ------------------------
+        Modal style
+------------------------ */
+.ui.form{
+  padding: 5px 10px !important;
+}
+
+.ui.mini.form {
+  border-radius: 10px;
+  box-shadow: 0 2px 2px rgb(100 100 100 / 30%);
 }
 
 .field {
-    text-align: center;
-    margin: 0 5px !important;
+  text-align: center;
+  margin: 0 5px !important;
 }
 
 .field:last-child {
-    margin-right: 0px !important;
+  margin-right: 0px !important;
 }
 
-.field label{
-    margin: 0 !important;
+.field label {
+  margin: 0 !important;
 }
 
-.range-input{
-    display: block;
+.column.field:first-child{
+  padding-left: 5px !important; 
+  margin-left: 0 !important;
 }
 
-#grade-table{
-    margin-top: 25px;
+.column.field:last-child{
+  padding-right: 5px !important; 
+  margin-left: 0 !important;
 }
 
+#initial-modal .fields {
+  display: flex;
+  justify-content: center;
+}
+
+/* --------------------------
+Responsive - Fix student modal
+-------------------------- */
+@media (max-width: 667px) {
+  #grade-container .column.field{
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 375px) {
+  .column.field:first-child{
+    padding-left: 0px !important; 
+  }
+  
+  .column.field:last-child{
+    padding-right: 0px !important; 
+  }
+}
