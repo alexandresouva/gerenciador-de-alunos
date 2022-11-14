@@ -36,7 +36,8 @@
             <div class="field">
               <label for="vol">&#9997; Quantidade de notas</label>
               <span class="range-input grades-label">0</span>
-              <input class="num-of-grades" type="range" value="0" min="0" max="6" />
+              <input onpointerup="updateNumTableColumns()" class="num-of-grades" type="range" value="0" min="0"
+                max="6" />
             </div>
             <div class="field">
               <label for="vol">Nota mínima para aprovação:</label>
@@ -54,7 +55,7 @@
     </div>
     <table id="grade-table" class="ui fixed single line celled table">
       <thead>
-        <tr class="center aligned">
+        <tr id="table-header" class="center aligned">
           <th class="left aligned">Nome</th>
           <th>Média</th>
           <th>Situação</th>
@@ -69,13 +70,14 @@
       </tbody>
     </table>
 
-    <button class="ui basic button">
+    <button class="ui basic button" onclick="addStudent()">
       <i class="icon user"></i>
       Adicionar aluno
     </button>
-    <button class="ui primary button" onclick="insertStudent()">Calcular</button>
+    <button class="ui primary button">Calcular</button>
   </main>
 
+  <!-- Initial modal -->
   <div class="ui small modal">
     <div class="header">Header</div>
     <div class="content">
@@ -87,7 +89,7 @@
           <div class="field">
             <label for="vol">&#9997; Quantidade de notas</label>
             <span class="range-input grades-label">0</span>
-            <input class="num-of-grades" type="range" value="0" min="0" max="6" />
+            <input onpointerup="updateNumTableColumns()" class="num-of-grades" type="range" value="0" min="0" max="6" />
           </div>
           <div class="field">
             <label for="vol">Nota mínima para aprovação:</label>
@@ -104,9 +106,45 @@
     </div>
   </div>
 
-  <!-- Local Script Imports -->
-  <script src="scripts/main.js"></script>
+  <!-- New Student Modal -->
+  <div class="ui large modal">
+    <div class="header">Header</div>
+    <i class="close icon"></i>
+    <form class="ui form">
+      <div class="field">
+        <label>Nome</label>
+        <input type="text" placeholder="Nome completo" />
+      </div>
+      <div id="grade-container" class="ui equal width grid">
+        <!-- <div class="column field">
+          <label>Nota 1</label>
+          <input type="text" />
+        </div>
+        <div class="column field">
+          <label>Nota 2</label>
+          <input type="text" />
+        </div>
+        <div class="column field">
+          <label>Nota 3</label>
+          <input type="text" />
+        </div>
+        <div class="column field">
+          <label>Nota 4</label>
+          <input type="text" />
+        </div> -->
+      </div>
+    </form>
+    <button onclick="deleteGradeInput()">Teste</button>
+    <div class="actions">
+      <button class="negative ui button">Cancelar</button>
+      <div class="ui positive right labeled icon button">
+        Cadastrar
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </div <!-- Local Script Imports -->
   <script src="scripts/grade_table.js"></script>
+  <script src="scripts/main.js"></script>
 </body>
 
 </html>
