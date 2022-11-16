@@ -1,4 +1,6 @@
 const resetTable = () => {
+  sum = 0;
+  overallSum = 0;
   while (tbody.firstElementChild) {
     tbody.removeChild(tbody.firstElementChild);
   }
@@ -18,7 +20,6 @@ let columnsDiff;
 
 const changeTableColumns = () => {
   newAmountOfGrades = document.getElementsByClassName('num-of-grades')[0].value;
-
 
   if (newAmountOfGrades > currentAmountOfGrades &&
     currentAmountOfGrades < 6) {
@@ -83,11 +84,11 @@ const updateGradeHeader = () => {
 const overallAverage = document.getElementById('overall-average');
 let average = [];
 let currentStudent;
+let sum = 0;
+let overallSum = 0;
 
 const calcAverage = () => {
   const qtyStudent = tbody.children.length;
-  let sum = 0;
-  let overallSum = 0;
 
   for (let i = 0; i < qtyStudent; i++) {
     currentStudent = tbody.children[i];
@@ -104,8 +105,9 @@ const calcAverage = () => {
   for (let i = 0; i < average.length; i++) {
     overallSum += average[i];
   }
-  if (currentAmountOfGrades > 0) overallAverage.textContent = overallSum / qtyStudent;
+  if (qtyStudent > 0) overallAverage.textContent = overallSum / qtyStudent;
   overallSum = 0;
+  sum = 0;
 
   showAverage();
   showStatus();
@@ -114,7 +116,7 @@ const calcAverage = () => {
 const showAverage = () => {
   const tdAverage = document.getElementsByClassName('average');
 
-  if (newAmountOfGrades = 0) {
+  if (newAmountOfGrades !== 0) {
     for (let i = 0; i < tdAverage.length; i++) {
       tdAverage[i].textContent = average[i];
     }
@@ -122,11 +124,13 @@ const showAverage = () => {
 }
 
 const showStatus = () => {
-  const minToApproval = document.getElementsByClassName('min-to-approval')[0].value;
-  const minToRecovery = document.getElementsByClassName('min-to-recovery')[0].value;
-
+  const minToApproval = Number(document.getElementsByClassName('min-to-approval')[0].value);
+  const minToRecovery = Number(document.getElementsByClassName('min-to-recovery')[0].value);
   const tdStatus = document.getElementsByClassName('status');
-  if (minToApproval > minToRecovery) {
+
+  if (minToApproval === 0) {
+    alert('Para ver a situação do(s) aluno(s), por favor, defina uma nota mínima de aprovação.');
+  } else if (minToApproval > minToRecovery) {
     for (let i = 0; i < tdStatus.length; i++) {
       resetStyleClass(tdStatus[i]);
 
