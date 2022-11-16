@@ -3,7 +3,7 @@
 //   .modal('show');
 
 
-const syncInputValue = (inputClassName, labelClassName) => {
+const syncInputs = (inputClassName, labelClassName) => {
 
   const input = document.getElementsByClassName(inputClassName);
   let label;
@@ -20,8 +20,8 @@ const syncInputValue = (inputClassName, labelClassName) => {
   }  
 }
 
-syncInputValue('num-of-grades', 'grades-label');
-syncInputValue('min-to-approval', 'approval-label');
-syncInputValue('min-to-recovery', 'recovery-label');
+syncInputs('num-of-grades', 'grades-label');
+syncInputs('min-to-approval', 'approval-label');
+syncInputs('min-to-recovery', 'recovery-label');
 
 

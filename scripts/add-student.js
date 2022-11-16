@@ -13,7 +13,7 @@ const openStudentModal = () => {
 }
 
 const createGradeInput = () => {
-  for (let i = 0; i < newNumColumns; i++) {
+  for (let i = 0; i < newAmountOfGrades; i++) {
 
     const newDiv = document.createElement("div");
     gradeContainer.appendChild(newDiv);

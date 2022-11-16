@@ -1,55 +1,78 @@
 const resetTable = () => {
-  const students = document.getElementsByClassName('student');
   while (tbody.firstElementChild) {
     tbody.removeChild(tbody.firstElementChild);
   }
-  overallAverage.textContent = '--';  
+  overallAverage.textContent = '--';
 }
+
 /* --------------------------
     Columns Manipulation
 -------------------------- */
 const thead = document.getElementById('table-head');
+const students = document.getElementsByClassName('student');
 
 let totalColumns;
-let currentNumColumns = 0;
-let newNumColumns;
+let currentAmountOfGrades = 0;
+let newAmountOfGrades;
 let columnsDiff;
 
 const changeTableColumns = () => {
-  newNumColumns = document.getElementsByClassName('num-of-grades')[0].value;
+  newAmountOfGrades = document.getElementsByClassName('num-of-grades')[0].value;
 
-  if (newNumColumns > currentNumColumns &&
-    !(currentNumColumns > 6)) {
-    columnsDiff = newNumColumns - currentNumColumns;
+
+  if (newAmountOfGrades > currentAmountOfGrades &&
+    currentAmountOfGrades < 6) {
+    columnsDiff = newAmountOfGrades - currentAmountOfGrades;
     for (let i = 0; i < columnsDiff; i++) {
+      createGradeColumn(thead);
       createGradeColumn();
-      currentNumColumns++;
+      currentAmountOfGrades++;
     }
   } else {
-    columnsDiff = currentNumColumns - newNumColumns;
+    columnsDiff = currentAmountOfGrades - newAmountOfGrades;
     for (let i = 0; i < columnsDiff; i++) {
+      deleteGradeColumn(thead);
       deleteGradeColumn();
-      currentNumColumns--;
+      currentAmountOfGrades--;
     }
   }
   updateGradeHeader();
 }
 
-const createGradeColumn = () => {
-  let position = 1;
-  let newTh = document.createElement("th");
-  thead.appendChild(newTh);
-  thead.insertBefore(newTh, thead.children[position]);
-  totalColumns = thead.children.length;
+const createGradeColumn = (element) => {
+  const isHeader = element === thead ? true : false;
+
+  if (isHeader) {
+    const newTh = document.createElement("th");
+    element.appendChild(newTh);
+    element.insertBefore(newTh, element.children[1]);
+    totalColumns = element.children.length;
+  } else {
+    let newTd;
+    for (let i = 0; i < students.length; i++) {
+      newTd = document.createElement("td");
+      newTd.classList.add('grade');
+      students[i].insertBefore(newTd, students[i].children[totalColumns - 3]);
+    }
+  }
 }
 
-const deleteGradeColumn = () => {
-  thead.removeChild(thead.children[totalColumns - 3]);
-  totalColumns = thead.children.length;
+const deleteGradeColumn = (element) => {
+  const isHeader = element === thead ? true : false;
+
+  if (isHeader) {
+    element.removeChild(element.children[totalColumns - 3]);
+    totalColumns = element.children.length;
+  } else {
+    for (let i = 0; i < students.length; i++) {
+      students[i].removeChild(students[i].children[totalColumns - 2]);
+      totalColumns = students[i].children.length;
+    }
+  }
 }
 
 const updateGradeHeader = () => {
-  for (let i = 1; i < totalColumns - 2; i++) {
+  for (let i = 1; i <= newAmountOfGrades; i++) {
     thead.children[i].textContent = `Nota ${i}`;
   }
 }
@@ -66,7 +89,6 @@ const calcAverage = () => {
   let sum = 0;
   let overallSum = 0;
 
-
   for (let i = 0; i < qtyStudent; i++) {
     currentStudent = tbody.children[i];
 
@@ -75,14 +97,14 @@ const calcAverage = () => {
         sum += Number(currentStudent.children[i].textContent);
       }
     }
-    average[i] = Math.round(sum / newNumColumns);
+    average[i] = Math.round(sum / newAmountOfGrades);
     sum = 0;
   }
-  
+
   for (let i = 0; i < average.length; i++) {
     overallSum += average[i];
   }
-  if (currentNumColumns > 0) overallAverage.textContent = overallSum / qtyStudent;
+  if (currentAmountOfGrades > 0) overallAverage.textContent = overallSum / qtyStudent;
   overallSum = 0;
 
   showAverage();
@@ -92,7 +114,7 @@ const calcAverage = () => {
 const showAverage = () => {
   const tdAverage = document.getElementsByClassName('average');
 
-  if (newNumColumns = 0) {
+  if (newAmountOfGrades = 0) {
     for (let i = 0; i < tdAverage.length; i++) {
       tdAverage[i].textContent = average[i];
     }
@@ -102,7 +124,7 @@ const showAverage = () => {
 const showStatus = () => {
   const minToApproval = document.getElementsByClassName('min-to-approval')[0].value;
   const minToRecovery = document.getElementsByClassName('min-to-recovery')[0].value;
-  
+
   const tdStatus = document.getElementsByClassName('status');
   if (minToApproval > minToRecovery) {
     for (let i = 0; i < tdStatus.length; i++) {
