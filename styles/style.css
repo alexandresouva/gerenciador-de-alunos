@@ -14,13 +14,13 @@ main {
   margin-top: 25px;
 }
 
-#student-form label{
-  margin-bottom: 5px !important;
+
+
+#btn-container{
+  display: flex;
+  justify-content: space-between;
 }
 
-/* ------------------------
-      Table settings
------------------------- */
 #header-settings {
   display: flex;
   justify-content: space-between;
@@ -38,6 +38,25 @@ main {
 
 .range-input {
   display: block;
+}
+
+/* ------------------------
+    Table status
+------------------------ */
+
+.approved{
+  background-color: #e5f9e7;
+  color: #394a3b;
+}
+
+.recovery{
+  background-color: #fffaf3;
+  color: #9d671c;
+}
+
+.disapproved{
+  background-color: #fff6f6;
+  color: #9f3a38;
 }
 
 /* ------------------------
@@ -80,12 +99,19 @@ main {
   justify-content: center;
 }
 
+#student-form label{
+  margin-bottom: 5px !important;
+}
+
 /* --------------------------
 Responsive - Fix student modal
 -------------------------- */
 @media (max-width: 667px) {
   #grade-container .column.field{
     padding: 10px 0;
+  }
+  #btn-container button{
+    margin-bottom: 10px;
   }
 }
 

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerenciador de alunos</title>
+  <title>Controle de alunos</title>
   <!-- Semantic UI import -->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css"
     integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Local imports -->
+  <!-- Local CSS imports -->
   <link rel="stylesheet" href="styles/reset.css">
   <link rel="stylesheet" href="styles/style.css">
 </head>
@@ -36,8 +36,7 @@
             <div class="field">
               <label for="vol">&#9997; Quantidade de notas</label>
               <span class="range-input grades-label">0</span>
-              <input onpointerup="updateNumTableColumns()" class="num-of-grades" type="range" value="0" min="0"
-                max="6" />
+              <input onpointerup="changeTableColumns()" class="num-of-grades" type="range" value="0" min="0" max="6" />
             </div>
             <div class="field">
               <label for="vol">Nota mínima para aprovação:</label>
@@ -55,7 +54,7 @@
     </div>
     <table id="grade-table" class="ui fixed single line celled table">
       <thead>
-        <tr id="table-header" class="center aligned">
+        <tr id="table-head" class="center aligned">
           <th class="left aligned">Nome</th>
           <th>Média</th>
           <th>Situação</th>
@@ -65,11 +64,19 @@
       </tbody>
     </table>
 
-    <button class="ui basic button" onclick="addStudent()">
-      <i class="icon user"></i>
-      Adicionar aluno
-    </button>
-    <button class="ui primary button">Calcular</button>
+    <div id="btn-container">
+      <div>
+        <button class="ui basic button" onclick="openStudentModal()">
+          <i class="icon user"></i>
+          Adicionar aluno
+        </button>
+        <button onclick="calcAverage()" class="ui primary button">Calcular média</button>
+      </div>
+      <div>
+        <button onclick="resetTable()" class="negative ui button">Limpar lista</button>
+      </div>
+    </div>
+
   </main>
 
   <!-- Initial modal -->
@@ -83,7 +90,7 @@
           <div class="field">
             <label for="vol">&#9997; Quantidade de notas</label>
             <span class="range-input grades-label">0</span>
-            <input onpointerup="updateNumTableColumns()" class="num-of-grades" type="range" value="0" min="0" max="6" />
+            <input onpointerup="changeTableColumns()" class="num-of-grades" type="range" value="0" min="0" max="6" />
           </div>
           <div class="field">
             <label for="vol">Nota mínima para aprovação:</label>
@@ -107,7 +114,7 @@
     <form id="student-form" class="ui form">
       <div class="field">
         <label>Nome</label>
-        <input type="text" placeholder="Nome completo" />
+        <input id="input-name" type="text" placeholder="Nome completo" />
       </div>
       <div id="grade-container" class="ui equal width grid">
         <!-- Here JS will be add grade inputs -->
@@ -115,15 +122,16 @@
     </form>
     <div class="actions">
       <button class="negative ui button">Cancelar</button>
-      <div class="ui positive right labeled icon button">
+      <div onclick="addStudent()" class="ui positive right labeled icon button">
         Cadastrar
         <i class="checkmark icon"></i>
       </div>
     </div>
   </div>
-  
+
   <!-- Local Script Imports -->
   <script src="scripts/grade_table.js"></script>
+  <script src="scripts/add-student.js"></script>
   <script src="scripts/main.js"></script>
 </body>
 

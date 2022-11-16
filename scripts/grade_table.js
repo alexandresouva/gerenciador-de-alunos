@@ -1,12 +1,20 @@
-const table = document.getElementById('grade-table');
-const tableHeader = document.getElementById('table-header');
+const resetTable = () => {
+  const students = document.getElementsByClassName('student');
+  while (tbody.firstElementChild) {
+    tbody.removeChild(tbody.firstElementChild);
+  }
+}
+/* --------------------------
+    Columns Manipulation
+-------------------------- */
+const thead = document.getElementById('table-head');
 
 let totalColumns;
-let newNumColumns;
 let currentNumColumns = 0;
+let newNumColumns;
 let columnsDiff;
 
-const updateNumTableColumns = () => {
+const changeTableColumns = () => {
   newNumColumns = document.getElementsByClassName('num-of-grades')[0].value;
 
   if (newNumColumns > currentNumColumns &&
@@ -29,57 +37,83 @@ const updateNumTableColumns = () => {
 const createGradeColumn = () => {
   let position = 1;
   let newTh = document.createElement("th");
-  tableHeader.appendChild(newTh);
-  tableHeader.insertBefore(newTh, tableHeader.children[position]);
-  totalColumns = tableHeader.children.length;
+  thead.appendChild(newTh);
+  thead.insertBefore(newTh, thead.children[position]);
+  totalColumns = thead.children.length;
 }
 
 const deleteGradeColumn = () => {
-  tableHeader.removeChild(tableHeader.children[totalColumns - 3]);
-  totalColumns = tableHeader.children.length;
+  thead.removeChild(thead.children[totalColumns - 3]);
+  totalColumns = thead.children.length;
 }
 
 const updateGradeHeader = () => {
   for (let i = 1; i < totalColumns - 2; i++) {
-    tableHeader.children[i].textContent = `Nota ${i}`;
+    thead.children[i].textContent = `Nota ${i}`;
   }
 }
 
-// Add students
+/* --------------------------
+        Average 
+-------------------------- */
+let average = [];
+let currentStudent;
 
-let gradeContainer = document.getElementById('grade-container');
+const calcAverage = () => {
+  const qtyStudent = tbody.children.length;
+  let sum = 0;
 
-const addStudent = () => {
-  openStudentModal();
-  resetGradeInput();
-  createGradeInput();
+  for (let i = 0; i < qtyStudent; i++) {
+    currentStudent = tbody.children[i];
+
+    for (let i = 0; i < currentStudent.children.length; i++) {
+      if (currentStudent.children[i].classList.contains('grade')) {
+        sum += Number(currentStudent.children[i].textContent);
+      }
+    }
+    average[i] = Math.round(sum / newNumColumns);
+    sum = 0;
+  }
+  showAverage();
+  showStatus();
 }
 
-const openStudentModal = () => {
-  $('.ui.large.modal')
-    .modal('show');
-}
-
-const createGradeInput = () => {
-
-  for (let i = 0; i < newNumColumns; i++) {
-    const newDiv = document.createElement("div");
-    gradeContainer.appendChild(newDiv);
-    newDiv.classList.add('column', 'field');
-
-    const newLabel = document.createElement("label");
-    newLabel.textContent = `Nota ${i + 1}`;
-    newDiv.appendChild(newLabel);
-
-    const newInput = document.createElement("input");
-    newDiv.appendChild(newInput);
+const showAverage = () => {
+  const tdAverage = document.getElementsByClassName('average');
+  for (let i = 0; i < tdAverage.length; i++) {
+    tdAverage[i].textContent = average[i];
   }
 }
 
-const resetGradeInput = () => {
-  let totalGrades = gradeContainer.children.length;
-
-  for (let i = 0; i < totalGrades; i++) {
-    gradeContainer.removeChild(gradeContainer.children[0]);
+const showStatus = () => {
+  const minToApproval = document.getElementsByClassName('min-to-approval')[0].value;
+  const minToRecovery = document.getElementsByClassName('min-to-recovery')[0].value;
+  
+  const tdStatus = document.getElementsByClassName('status');
+  if (minToApproval > minToRecovery) {
+    for (let i = 0; i < tdStatus.length; i++) {
+      resetStyleClass(tdStatus[i]);
+      
+      if (average[i] >= minToApproval) {
+        tdStatus[i].innerHTML = 'Aprovado <i class="check circle icon"></i>';
+        tdStatus[i].classList.add('approved');
+      } else if (average[i] >= minToRecovery && minToRecovery > 0) {
+        tdStatus[i].innerHTML = 'Recuperação <i class="attention icon"></i>';
+        tdStatus[i].classList.add('recovery');
+      } else {
+        tdStatus[i].innerHTML = 'Reprovado <i class="times icon"></i>';
+        tdStatus[i].classList.add('disapproved');
+      }
+    }
+  } else if (minToApproval === minToRecovery) {
+    alert('A nota mínima de aprovação não pode ser igual a nota mínima de recuperação.');
+  } else {
+    alert('A nota para aprovação deve ser maior que a nota de recuperação. Caso não queria aplicar uma recuperação, deixe o campo zerado.');
   }
+}
+
+const resetStyleClass = (element) => {
+  element.classList.remove('approved');
+  element.classList.remove('recovery');
+  element.classList.remove('disapproved');
 }
