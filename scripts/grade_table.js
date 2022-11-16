@@ -3,6 +3,7 @@ const resetTable = () => {
   while (tbody.firstElementChild) {
     tbody.removeChild(tbody.firstElementChild);
   }
+  overallAverage.textContent = '--';  
 }
 /* --------------------------
     Columns Manipulation
@@ -56,12 +57,15 @@ const updateGradeHeader = () => {
 /* --------------------------
         Average 
 -------------------------- */
+const overallAverage = document.getElementById('overall-average');
 let average = [];
 let currentStudent;
 
 const calcAverage = () => {
   const qtyStudent = tbody.children.length;
   let sum = 0;
+  let overallSum = 0;
+
 
   for (let i = 0; i < qtyStudent; i++) {
     currentStudent = tbody.children[i];
@@ -74,14 +78,24 @@ const calcAverage = () => {
     average[i] = Math.round(sum / newNumColumns);
     sum = 0;
   }
+  
+  for (let i = 0; i < average.length; i++) {
+    overallSum += average[i];
+  }
+  if (currentNumColumns > 0) overallAverage.textContent = overallSum / qtyStudent;
+  overallSum = 0;
+
   showAverage();
   showStatus();
 }
 
 const showAverage = () => {
   const tdAverage = document.getElementsByClassName('average');
-  for (let i = 0; i < tdAverage.length; i++) {
-    tdAverage[i].textContent = average[i];
+
+  if (newNumColumns = 0) {
+    for (let i = 0; i < tdAverage.length; i++) {
+      tdAverage[i].textContent = average[i];
+    }
   }
 }
 
@@ -93,7 +107,7 @@ const showStatus = () => {
   if (minToApproval > minToRecovery) {
     for (let i = 0; i < tdStatus.length; i++) {
       resetStyleClass(tdStatus[i]);
-      
+
       if (average[i] >= minToApproval) {
         tdStatus[i].innerHTML = 'Aprovado <i class="check circle icon"></i>';
         tdStatus[i].classList.add('approved');

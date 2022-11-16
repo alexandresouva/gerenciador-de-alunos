@@ -25,6 +25,8 @@ const createGradeInput = () => {
 
     const newInput = document.createElement("input");
     newInput.classList.add('input-grade');
+    // newInput.setAttribute('oninput', `this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')`);
+    newInput.setAttribute('type', 'number');
     newDiv.appendChild(newInput);
   }
 }
