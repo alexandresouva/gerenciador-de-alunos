@@ -5,14 +5,14 @@ let gradeContainer = document.getElementById('grade-container');
 const inputName = document.getElementById('input-name');
 
 const openStudentModal = () => {
-  resetGradeInput();
-  createGradeInput();
+  resetStudentInputs();
+  createStudentInputs();
 
   $('.ui.large.modal')
     .modal('show');
 }
 
-const createGradeInput = () => {
+const createStudentInputs = () => {
   for (let i = 0; i < newAmountOfGrades; i++) {
 
     const newDiv = document.createElement("div");
@@ -31,7 +31,7 @@ const createGradeInput = () => {
   }
 }
 
-const resetGradeInput = () => {
+const resetStudentInputs = () => {
   let totalGrades = gradeContainer.children.length;
 
   inputName.value = '';

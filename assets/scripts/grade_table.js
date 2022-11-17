@@ -1,6 +1,7 @@
 const resetTable = () => {
   sum = 0;
   overallSum = 0;
+  average = [];
   while (tbody.firstElementChild) {
     tbody.removeChild(tbody.firstElementChild);
   }
@@ -105,7 +106,7 @@ const calcAverage = () => {
   for (let i = 0; i < average.length; i++) {
     overallSum += average[i];
   }
-  if (qtyStudent > 0) overallAverage.textContent = overallSum / qtyStudent;
+  if (qtyStudent > 0) overallAverage.textContent = Math.round(overallSum / qtyStudent);
   overallSum = 0;
   sum = 0;
 

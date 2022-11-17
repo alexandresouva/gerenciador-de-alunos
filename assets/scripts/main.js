@@ -1,6 +1,6 @@
 // Inital settings modal 
-// $('.ui.small.modal')
-//   .modal('show');
+$('.ui.small.modal')
+  .modal('show');
 
 
 const syncInputs = (inputClassName, labelClassName) => {
